@@ -119,9 +119,7 @@ def initialize_model(model_name, num_classes, feature_extract, use_pretrained=Tr
 
 
 def main():
-    st.title('Welcome to Corn Disease Classification Demo Application')
-
-    activities = ["Live Classification", "Upload Image", "Camera Input", "About", "Contact"]
+    activities = ["Home", "Live Classification", "Upload Image", "Camera Input", "About"]
     choice = st.sidebar.selectbox('Select Activity', activities)
 
     model_name = 'mobilenetv2'
@@ -174,15 +172,58 @@ def main():
             st.write(f"Overall prediction : **{output}**")
 
     elif choice == "About":
-        st.markdown("website ini merupakan proyek demonstrasi klasifikasi penyakit tanaman pada daun jagung, yang terdiri dari penyakit bulai, bercak daun, karat daun dan hawar daun. Penelitian terhadap klasifikasi penyakit daun jagung ini dapat memberikan manfaat untuk mengindentifikasi penyakit tanaman yang menjadi faktor utama untuk mencegah dan mengurangi penyebaran penyakit pada tanaman jagung. ")
+        with st.container():
+            st.markdown(
+                """
+                    | Nama | Wiwin Nur Kholifah|
+|------|-------------------|
+| NIM | 18090030 |
+| Prodi | Teknik Informatika |
+| No. Telp | 085848718618 |
+| Email | wiwinnurkholifah850@gmail.com|
+                """
+            )
+    
+    elif choice == "Home":
+        st.markdown("""
+        
+        # Aplikasi Demo Klasifikasi Penyakit Jagung dengan Metode CNN
+### Tugas Akhir D4 Teknik Informatika Politeknik Harapan Bersama Tegal
 
-    elif choice == "Contact":
-        st.markdown("### Contact :")
-        st.markdown("Nama  : Wiwin Nur Kholifah")
-        st.markdown("Nim   : 18090030")
-        st.markdown("Prodi : Teknik Informatika ")
-        st.markdown("No. Telp : 085848718618")
-        st.markdown("email : wiwinnurkholifah850@gmail.com")
+Website ini merupakan proyek demonstrasi klasifikasi penyakit tanaman pada daun jagung, yang terdiri dari penyakit bulai, bercak daun, karat daun dan hawar daun.
+
+## Latar Belakang
+Kendala utama yang terjadi pada masa penanaman jagung yaitu gangguan biotis yaitu gangguan oleh makroorganisme (gangguan hama) dan gangguan oleh mikroorganisme (gangguan penyakit). Penyakit tanaman jagung merupakan hasil interaksi dari tiga komponen utama yaitu patogen, inang, dan lingkungan. Kurangnya informasi dan pengetahuan tentang penyakit dari tanaman jagung bagi petani dapat menyebabkan kesalahan diagnosa penyakit yang menyerang tanaman jagung yang berdampak pula pada kesalahan pengendaliannya. Terdapat beberapa penyakit yang dapat menyerang tanaman jagung seperti, penyakit bulai (Downy mildew), hawar daun (Northern Leaf Blight), karat daun (Southern Rust), dan  bercak daun (Southern Leaf Blight).
+
+Berdasarkan permasalahan diatas maka perlu dilakukan pendeteksian dini serta pengidentifikasian penyakit tanaman mejadi faktor utama untuk mencegah dan mengurangi penyebaran penyakit pada tanaman jagung. Penyakit yang tidak terdeteksi dan dibiarkan berkembang dapat mengakibatkan kerusakan
+
+Oleh karena itu, penelitian ini dilakukan bertujuan untuk mengklasifikasi penyakit jagung. Adapun metode yang digunakan dalam proses klasifikasi adalah Convolutional Neural Network, yang pada prosesnya data training dilatih untuk menghasilkan tingkat akurasi yang maksimal. Convolutional Neural Network (CNN) merupakan salah satu metode Deep learning yang dapat digunakan untuk mendeteksi dan mengenali sebuah objek pada sebuah citra digital. 
+
+## Fitur Aplikasi
+
+- Realtime Klasifikasi
+- Klasifikasi menggunakan input dari upload file
+- Klasifikasi menggunakan input kamera
+
+## Library yang Digunakan
+
+Pada aplikasi ini menggunakan beberapa library:
+
+- [Pytorch] - Digunakan sebagai basis deeplearning (pretrained, training dan testing model)
+- [Albumentation] - Augmentasi gambar
+- [Streamlit] - Digunakan sebagai frontend dan juga backend untuk melakukan inferensi model
+- [Streamlit-WebRtc] - Digunakan untuk melakukan inferensi realtime menggunakan WebRtc
+- [Matplotlib] - Library untuk visualisasi data
+
+[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
+
+   [pytorch]: <https://pytorch.org/>
+   [albumentation]: <https://albumentations.ai/>
+   [Streamlit-WebRtc]: <https://github.com/whitphx/streamlit-webrtc>
+   [streamlit]: <https://streamlit.io/>
+   [Matplotlib]: <https://matplotlib.org/>
+        
+        """)
 
 if __name__ == '__main__':
     main()
