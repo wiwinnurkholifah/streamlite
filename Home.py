@@ -175,6 +175,10 @@ def main():
         with st.container():
             st.markdown(
                 """
+                # About
+                ---
+                **Profil tentang Author:**
+
                     | Nama | Wiwin Nur Kholifah|
 |------|-------------------|
 | NIM | 18090030 |
