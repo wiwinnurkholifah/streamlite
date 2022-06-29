@@ -172,18 +172,14 @@ def main():
             st.write(f"Overall prediction : **{output}**")
 
     elif choice == "About":
-        col1, col2, col3 = st.columns(3)
         image = Image.open('2018-07-31 06.32.30 2.jpg')
-        with col1:
-            st.markdown("""
+        st.markdown("""
 # About
 ---
 ### Profil tentang Author:""")
             
-        with col2:
-            st.image(image, caption='Wiwin Nur Kholifah')
-        with col3:
-            st.markdown(
+        st.image(image, caption='Wiwin Nur Kholifah')
+        st.markdown(
                 """
 | Nama | Wiwin Nur Kholifah|
 |------|-------------------|
