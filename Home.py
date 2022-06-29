@@ -173,7 +173,7 @@ def main():
 
     elif choice == "About":
         with st.container():
-            image = Image.open('sunrise.jpg')
+            image = Image.open('2018-07-31 06.32.30 2.jpg')
             st.markdown("""
 # About
 ---
