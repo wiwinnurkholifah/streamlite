@@ -173,12 +173,15 @@ def main():
 
     elif choice == "About":
         with st.container():
-            st.markdown(
-                """
+            image = Image.open('sunrise.jpg')
+            st.markdown("""
 # About
 ---
-
 **Profil tentang Author:**
+            """)
+            st.image(image, caption='Wiwin Nur Kholifah')
+            st.markdown(
+                """
 
 | Nama | Wiwin Nur Kholifah|
 |------|-------------------|
