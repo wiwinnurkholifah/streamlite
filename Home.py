@@ -172,8 +172,7 @@ def main():
             st.write(f"Overall prediction : **{output}**")
 
     elif choice == "About":
-        with st.container():
-            image = Image.open('2018-07-31 06.32.30 2.jpg')
+        image = Image.open('2018-07-31 06.32.30 2.jpg')
             st.markdown("""
 # About
 ---
