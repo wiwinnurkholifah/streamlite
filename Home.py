@@ -173,23 +173,19 @@ def main():
 
     elif choice == "About":
         image = Image.open('2018-07-31 06.32.30 2.jpg')
-            st.markdown("""
+        st.markdown("""
 # About
 ---
-**Profil tentang Author:**
-            """)
-            st.image(image, caption='Wiwin Nur Kholifah')
-            st.markdown(
+**Profil tentang Author:**""")
+        st.image(image, caption='Wiwin Nur Kholifah')
+        st.markdown(
                 """
-
 | Nama | Wiwin Nur Kholifah|
 |------|-------------------|
 | NIM | 18090030 |
 | Prodi | Teknik Informatika |
 | No. Telp | 085848718618 |
-| Email | wiwinnurkholifah850@gmail.com|
-                """
-            )
+| Email | wiwinnurkholifah850@gmail.com|""")
     
     elif choice == "Home":
         st.markdown("""
