@@ -52,12 +52,7 @@ def app_corn_disease_predictor():
         [transforms.ToTensor(),
          transforms.Normalize(mean, std),
          transforms.Resize((256, 256))])
-    idx_to_class = {
-        0: 'Karat Daun',
-        1: 'Bercak Daun',
-        2: 'bulai',
-        3: 'Hawar Daun'
-    }
+    idx_to_class = {0: 'bulai', 1: 'Karat Daun', 2: 'Hawar Daun', 3: 'Bercak Daun'}
 
     model_ft, _ = initialize_model(model_name, num_classes, feature_extract, use_pretrained=True)
 
@@ -127,12 +122,7 @@ def main():
     feature_extract = False
     mean = [0.485, 0.456, 0.406]
     std = [0.229, 0.224, 0.225]
-    idx_to_class = {
-        0: 'Karat Daun',
-        1: 'Bercak Daun',
-        2: 'bulai',
-        3: 'Hawar Daun'
-    }
+    idx_to_class = {0: 'bulai', 1: 'Karat Daun', 2: 'Hawar Daun', 3: 'Bercak Daun'}
 
     transAug = transforms.Compose(
         [transforms.ToTensor(),
