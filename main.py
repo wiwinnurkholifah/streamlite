@@ -117,9 +117,9 @@ def show_main_page():
                 result_insert_img = dbservice.insert_image(sliced_encoded_img)
 
                 if result_insert_img != None or result_insert_img != 0:
-                    st.success('Image inserted to db.', icon='✅')
+                    st.success('✅ Image inserted to db.')
                 else:
-                    st.error('Failed to insert images.', icon='🚨')
+                    st.error('🚨 Failed to insert images.')
 
                 our_static_image = Image.open(image_file)
                 idx, output = predict.prediction(image_file, transAug, model_ft)
@@ -129,9 +129,9 @@ def show_main_page():
                 result_insert_prediction = dbservice.insert_prediction(idx_to_class[idx], int(output[idx] * 100), output, result_insert_img)
 
                 if result_insert_prediction != None or result_insert_prediction != 0:
-                    st.success('Prediction inserted to db.', icon='✅')
+                    st.success('✅ Prediction inserted to db.')
                 else:
-                    st.error('Failed to insert prediction.', icon='🚨')
+                    st.error('🚨 Failed to insert prediction.')
 
                 st.image(our_static_image, width=400)
                 st.write(f""" ### Prediction: {idx} - {idx_to_class[idx]}""")
@@ -147,9 +147,9 @@ def show_main_page():
                 result_insert_img = dbservice.insert_image(encoded_image)
 
                 if result_insert_img != None or result_insert_img != 0:
-                    st.success('Image inserted to db.', icon='✅')
+                    st.success('✅ Image inserted to db.')
                 else:
-                    st.error('Failed to insert images.', icon='🚨')
+                    st.error('🚨 Failed to insert images.')
 
                 # To read image file buffer as a PIL Image:
                 img = Image.open(img_file_buffer)
@@ -160,9 +160,9 @@ def show_main_page():
                 result_insert_prediction = dbservice.insert_prediction(idx_to_class[idx], int(output[idx] * 100), output,result_insert_img)
 
                 if result_insert_prediction != None or result_insert_prediction != 0:
-                    st.success('Prediction inserted to db.', icon='✅')
+                    st.success('✅ Prediction inserted to db.')
                 else:
-                    st.error('Failed to insert prediction.', icon='🚨')
+                    st.error('🚨 Failed to insert prediction.')
 
                 st.image(img, width=400)
                 st.write(f""" ### Prediction: {idx} - {idx_to_class[idx]}""")
@@ -234,7 +234,7 @@ def handle_login(username, password):
         st.session_state['loggedIn'] = True
     else:
         st.session_state['loggedIn'] = False
-        st.error("Invalid user name or password", icon="🚨")
+        st.error("🚨 Invalid user name or password")
 
 
 def show_login_page():
