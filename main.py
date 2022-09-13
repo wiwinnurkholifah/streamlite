@@ -111,10 +111,7 @@ def show_main_page():
             if image_file is not None:
                 # insert image into db
                 encoded_image = imageservice.encode_image_base64(image_file)
-                sliced_encoded_img = encoded_image.lstrip('b\'')
-                sliced_encoded_img = sliced_encoded_img.rstrip(sliced_encoded_img[-1])
-
-                result_insert_img = dbservice.insert_image(sliced_encoded_img)
+                result_insert_img = dbservice.insert_image(encoded_img)
 
                 if result_insert_img != None or result_insert_img != 0:
                     st.success('✅ Image inserted to db.')
