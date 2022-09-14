@@ -4,6 +4,7 @@ import base64
 def encode_image_base64(img_buffer):
     img = img_buffer.getvalue()
     encoded_image = base64.b64encode(img)
+    encoded_image = encoded_image.decode('utf-8')
     return encoded_image
 
 

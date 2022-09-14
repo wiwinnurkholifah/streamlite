@@ -1,25 +1,25 @@
 ul {
-    padding-left: 1.5rem;
-  }
+  padding-left: 1.5rem;
+}
 
-h1 {
-    text-align:center;
+h1, h2 {
+  text-align:center;
 }
 
 h5 {
-    text-align:center;
+  text-align:center;
 }
 
 img {
-    margin-left: 17.2rem;
+  margin-left: 0;
 }
 
 #MainMenu {
-    visibility: hidden;
+  visibility: hidden;
 }
 footer {
-    visibility: hidden;
+  visibility: hidden;
 }
 header {
-    visibility: hidden;
+  visibility: hidden;
 }

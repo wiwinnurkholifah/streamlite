@@ -24,23 +24,26 @@ logOutSection = st.container()
 mainSection = st.container()
 
 
-def print_result(result):
-    temp = ""
-    for idx, items in enumerate(result):
-        img_src = f'data:image/jpg;base64,{items[1]}'
+# def print_result(result):
+#     temp = ""
+#     for idx, items in enumerate(result):
+#         img_src = f'data:image/jpg;base64,{items[1]}'
 
-        temp += f"""
-            <tr>
-              <th scope="row">{idx + 1}</th>
-              <td><img src="{img_src}"></img></td>
-              <td>{items[2]}</td>
-              <td>{items[3]}</td>
-              <td>{items[4]}</td>
-              <td><button class="btn btn-danger">Delete</button></td>
-            </tr>
-        """
-    return temp
+#         temp += f"""
+#             <tr>
+#               <th scope="row">{idx + 1}</th>
+#               <td><img src="{img_src}"></img></td>
+#               <td>{items[2]}</td>
+#               <td>{items[3]}</td>
+#               <td>{items[4]}</td>
+#               <td><button class="btn btn-danger">Delete</button></td>
+#             </tr>
+#         """
+#     return temp
 
+def handle_delete(id):
+    dbservice.delete_image(id)
+    dbservice.delete_prediction(id)
 
 def show_main_page():
     with mainSection:
@@ -63,10 +66,13 @@ def show_main_page():
              transforms.Resize((256, 256))])
         model_ft, _ = predict.initialize_model(model_name, num_classes, feature_extract, use_pretrained=True)
 
+        # Live classification
         if choice == "Live Classification":
             st.title("🎥 Live Classification")
             predict.app_corn_disease_predictor()
             st.markdown(f'''Press Start 👈 to start the show!''')
+
+        # Homepage
         elif choice == 'Home':
             st.markdown('# Aplikasi Demo Klasifikasi Penyakit Jagung dengan Metode CNN')
             st.markdown("""
@@ -104,14 +110,15 @@ def show_main_page():
                [streamlit]: <https://streamlit.io/>
                [Matplotlib]: <https://matplotlib.org/>
                """)
-            pass
+
+        # Input Upload
         elif choice == 'Upload Image':
             st.title("🏞 Image Inference")
             image_file = st.file_uploader('Upload Image', type=["jpg", "jpeg"])
             if image_file is not None:
                 # insert image into db
                 encoded_image = imageservice.encode_image_base64(image_file)
-                result_insert_img = dbservice.insert_image(encoded_image)
+                result_insert_img = dbservice.insert_image(str(encoded_image))
 
                 if result_insert_img != None or result_insert_img != 0:
                     st.success('✅ Image inserted to db.')
@@ -135,13 +142,14 @@ def show_main_page():
                 st.write(f"Probability : {int(output[idx] * 100)}%")
                 st.write(f"Overall prediction : **{output}**")
 
+        # Input kamera
         elif choice == "Camera Input":
             st.title("📸 Inference using Camera Input")
             img_file_buffer = st.camera_input("Take a picture")
             if img_file_buffer is not None:
                 encoded_image = imageservice.encode_image_base64(img_file_buffer)
                 # insert image to db
-                result_insert_img = dbservice.insert_image(encoded_image)
+                result_insert_img = dbservice.insert_image(str(encoded_image))
 
                 if result_insert_img != None or result_insert_img != 0:
                     st.success('✅ Image inserted to db.')
@@ -166,26 +174,42 @@ def show_main_page():
                 st.write(f"Probability : {int(output[idx] * 100)}%")
                 st.write(f"Overall prediction : **{output}**")
 
+        # Dashboard prediksi
         elif choice == "Prediction Result":
             st.title("📈 Prediction Result Dashboard")
             result = dbservice.get_image_and_prediction_all()
-            st.markdown(f'''
-            <table class="table table-striped table-light table-bordered table-hover" style="color:black;">
-              <caption>List of prediction</caption>
-              <thead>
-                <tr>
-                  <th scope="col">No</th>
-                  <th scope="col">Image</th>
-                  <th scope="col">Prediction</th>
-                  <th scope="col">Probability</th>
-                  <th scope="col">Overall Prediction</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {print_result(result)}
-              </tbody>
-            </table>''', unsafe_allow_html=True)
+            # st.markdown(f'''
+            # <table class="table table-striped table-light table-bordered table-hover" style="color:black;">
+            #   <caption>List of prediction</caption>
+            #   <thead>
+            #     <tr>
+            #       <th scope="col">No</th>
+            #       <th scope="col">Image</th>
+            #       <th scope="col">Prediction</th>
+            #       <th scope="col">Probability</th>
+            #       <th scope="col">Overall Prediction</th>
+            #       <th scope="col">Action</th>
+            #     </tr>
+            #   </thead>
+            #   <tbody>
+            #     {print_result(result)}
+            #   </tbody>
+            # </table>''', unsafe_allow_html=True)
+            columns = st.columns((1, 3, 2, 2, 2, 1))
+            fields = ['No', 'Image', 'Prediction', 'Probability', 'Overall Prediction', 'Action']
+            for col, field_name in zip(columns, fields):
+                # header
+                col.write(field_name)
+
+            for idx, items in enumerate(result):
+                decoded_img = imageservice.decode_image_base64(items[1])
+                col1, col2, col3, col4, col5, col6 = st.columns((1, 3, 2, 2, 2, 1))
+                col1.write(idx)
+                col2.image(Image.open(BytesIO(decoded_img)), use_column_width="always")
+                col3.write(items[2])
+                col4.write(items[3])
+                col5.write(items[4])
+                col6.button('delete', on_click=handle_delete, args=(items[0], ), key=items[0])
 
         elif choice == "About":
             about.show_about_page()
